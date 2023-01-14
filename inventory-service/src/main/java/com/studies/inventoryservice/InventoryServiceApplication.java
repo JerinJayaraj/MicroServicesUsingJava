@@ -15,19 +15,19 @@ public class InventoryServiceApplication {
 	}
 
 	/* Load data at time of application start up */
-	@Bean
-	public CommandLineRunner loadData(InventoryRepository inventoryRepository){
-		return args -> {
-			Inventory inventory = new Inventory();
-			inventory.setSkuCode("iphone_13");
-			inventory.setQuantity(10);
-
-			Inventory inventory1 = new Inventory();
-			inventory1.setSkuCode("iphone_13_red");
-			inventory1.setQuantity(5);
-
-			inventoryRepository.save(inventory);
-			inventoryRepository.save(inventory1);
-		};
-	}
+//	@Bean
+//	public CommandLineRunner loadData(InventoryRepository inventoryRepository){
+//		return args -> {
+//			Inventory inventory = new Inventory();
+//			inventory.setSkuCode("iphone_13");
+//			inventory.setQuantity(10);
+//
+//			Inventory inventory1 = new Inventory();
+//			inventory1.setSkuCode("iphone_13_red");
+//			inventory1.setQuantity(5);
+//
+//			inventoryRepository.save(inventory);
+//			inventoryRepository.save(inventory1);
+//		};
+//	}
 }

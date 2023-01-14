@@ -5,10 +5,11 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
 public interface InventoryRepository extends MongoRepository<Inventory, String> {
-    @Query("{ 'skuCode' : ?0 }")
-    Optional<Inventory> findBySkuCode(String skuCode);
+    @Query("{ 'skuCode' : { $in:  ?0  } }")
+    List<Inventory> findBySkuCode(List<String> skuCode);
 }
