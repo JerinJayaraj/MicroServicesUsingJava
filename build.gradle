@@ -23,9 +23,15 @@ subprojects {
         jcenter()
     }
 
+    ext {
+        set('springCloudVersion', "2021.0.3")
+    }
+
+
     dependencyManagement {
         imports {
-            mavenBom("org.springframework.boot:spring-boot-dependencies:2.1.7.RELEASE")
+            mavenBom("org.springframework.boot:spring-boot-dependencies:2.7.7")
+            mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
         }
     }
 }

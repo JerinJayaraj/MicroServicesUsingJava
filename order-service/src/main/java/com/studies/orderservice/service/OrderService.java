@@ -8,6 +8,7 @@ import com.studies.orderservice.model.OrderLineItem;
 import com.studies.orderservice.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.util.UriBuilder;
@@ -23,11 +24,13 @@ import java.util.stream.Collectors;
 public class OrderService {
 
     private OrderRepository orderRepository;
+
     private WebClient webClient;
     @Autowired
     public OrderService(WebClient.Builder webClientBuilder,  OrderRepository orderRepository) {
-        this.webClient = WebClient.builder()
-                .baseUrl("http://localhost:8082").build();
+//        this.webClient = WebClient.builder()
+//                .baseUrl("http://inventory-service").build();
+        this.webClient = webClientBuilder.baseUrl("http://inventory-service").build();
         this.orderRepository = orderRepository;
     }
 
@@ -58,15 +61,15 @@ public class OrderService {
             boolean allProductsInStock = skuCodes.size() == inventoryResponseArray.length;
             if (allProductsInStock) {
                 orderRepository.save(order);
+                return "Order placed successfully";
             }
             else {
                 return "Product is not in stock.. Please try again later";
             }
         }
         else {
-            return "Order placed successfully";
+            return "Product is not in stock.. Please try again later";
         }
-        return null;
     }
 
     private OrderLineItem mapToDto(OrderLineItemDto orderLineItemDto) {
